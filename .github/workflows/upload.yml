@@ -29,6 +29,7 @@ jobs:
           cp ${{ github.workspace }}/initramfs/* initramfs/
           cp ${{ github.workspace }}/spec .
           echo "about to initramfs.sh"; ls; pwd
+          make -j$(nproc)
           ./usr/gen_initramfs.sh spec -o init.cpio
           make -j$(nproc) bzImage
           cp arch/x86/boot/bzImage ${{ github.workspace }}/
