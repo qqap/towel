@@ -11,6 +11,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      repository-projects: write
     concurrency: upload-deploy-group
     steps:
       - uses: actions/checkout@v4
