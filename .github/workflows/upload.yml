@@ -1,0 +1,61 @@
+name: Upload & Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency: upload-deploy-group
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential flex bison libssl-dev libelf-dev nasm wget
+
+      - name: Download and extract Linux kernel
+        run: |
+          wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.49.tar.xz
+          tar xf linux-6.6.49.tar.xz
+          cd linux-6.6.49
+
+      - name: Copy configuration files
+        run: |
+          cp ${{ github.workspace }}/.config .
+          mkdir -p initramfs
+          cp ${{ github.workspace }}/initramfs/* initramfs/
+          cp ${{ github.workspace }}/spec .
+
+      - name: Generate init.cpio and build kernel
+        run: |
+          make -j$(nproc) bzImage
+          ./usr/gen_initramfs.sh spec -o init.cpio
+          cp arch/x86/boot/bzImage ${{ github.workspace }}/
+
+      - name: Run build script
+        run: |
+          cd ${{ github.workspace }}
+          ./build.sh
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}-${{ github.sha }}
+          release_name: Release ${{ github.ref }}-${{ github.sha }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./disk.img
+          asset_name: disk.img
+          asset_content_type: application/octet-stream
