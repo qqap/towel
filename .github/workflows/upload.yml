@@ -28,6 +28,7 @@ jobs:
           cp ${{ github.workspace }}/initramfs/* initramfs/
           cp ${{ github.workspace }}/spec .
           echo "about to initramfs.sh"; ls; pwd
+          make defconfig
           make -j$(nproc)
           cp ${{ github.workspace }}/.config .
           ./usr/gen_initramfs.sh spec -o init.cpio
