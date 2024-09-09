@@ -42,7 +42,7 @@ echo "Kernel padding: $K_PAD bytes"
 # echo "Initrd padding: $R_PAD bytes"
 
 # Assemble the bootloader with the initrd size defined
-nasm -o $OUTPUT -D initRdSizeDef=$R_SZ $INPUT
+nasm -o $OUTPUT -D initRdSizeDef=0 $INPUT
 
 # Append kernel to the bootloader
 cat $KERN >> $OUTPUT
