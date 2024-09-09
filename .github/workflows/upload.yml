@@ -27,7 +27,7 @@ jobs:
           mkdir -p initramfs
           cp ${{ github.workspace }}/initramfs/* initramfs/
           cp ${{ github.workspace }}/spec .
-
+ 
       - name: Generate init.cpio and build kernel
         run: |
           make -j$(nproc) bzImage
