@@ -15,16 +15,16 @@ done
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
 
-busybox ip link set eth0 up
-busybox ip addr add 66.78.40.119/24 dev eth0
-busybox ip route add default via 66.78.40.1
-busybox ping -c 4 8.8.8.8
+# busybox ip link set eth0 up
+# busybox ip addr add 66.78.40.119/24 dev eth0
+# busybox ip route add default via 66.78.40.1
+# busybox ping -c 4 8.8.8.8
 
 # Qemu local
-# busybox ip link set eth0 up
-# busybox ip addr add 10.0.2.15/24 dev eth0
-# busybox ip route add default via 10.0.2.2
-# busybox ping -c 4 8.8.8.8
+busybox ip link set eth0 up
+busybox ip addr add 10.0.2.15/24 dev eth0
+busybox ip route add default via 10.0.2.2
+busybox ping -c 4 8.8.8.8
 
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 

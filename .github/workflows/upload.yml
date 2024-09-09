@@ -18,7 +18,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential flex bison libssl-dev libelf-dev nasm wget
 
-      - name: Download and extract Linux kernel
+      - name: Download and extract Linux kernel # need to grab the latest stable kernel
         run: |
           wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.49.tar.xz
           tar xf linux-6.6.49.tar.xz
@@ -32,7 +32,8 @@ jobs:
           make -j$(nproc)
           cp ${{ github.workspace }}/.config .
           ./usr/gen_initramfs.sh spec -o init.cpio
-          make -j$(nproc) bzImage
+          echo "about to make with init.cpio"; ls; pwd
+          make -j$(nproc)
           cp arch/x86/boot/bzImage ${{ github.workspace }}/
           cd ${{ github.workspace }}
           ./build.sh
