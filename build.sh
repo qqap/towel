@@ -25,21 +25,21 @@ OUTPUT="disk.img"            # Final output file containing bootloader, kernel, 
 KERN="./bzImage"       # Kernel binary file
 # KERN="./bzImage-5.17.3"       # Kernel binary file
 
-RD="./init.cpio"          # Initial RAM disk (initrd) file
+# RD="./init.cpio"          # Initial RAM disk (initrd) file
 # RD="./a"          # Initial RAM disk (initrd) file
 
 # Calculate sizes of kernel and ramdisk
 K_SZ=`stat -c %s $KERN`  # Get size of kernel file in bytes
-R_SZ=`stat -c %s $RD`    # Get size of initrd file in bytes
+# R_SZ=`stat -c %s $RD`    # Get size of initrd file in bytes
 
 # Calculate padding needed to align to 512-byte sectors
 K_PAD=$((512 - $K_SZ % 512))  # Padding for kernel
-R_PAD=$((512 - $R_SZ % 512))  # Padding for initrd
+# R_PAD=$((512 - $R_SZ % 512))  # Padding for initrd
 
 echo "Kernel size: $K_SZ bytes"
-echo "Initrd size: $R_SZ bytes"
+# echo "Initrd size: $R_SZ bytes"
 echo "Kernel padding: $K_PAD bytes"
-echo "Initrd padding: $R_PAD bytes"
+# echo "Initrd padding: $R_PAD bytes"
 
 # Assemble the bootloader with the initrd size defined
 nasm -o $OUTPUT -D initRdSizeDef=$R_SZ $INPUT
@@ -52,13 +52,13 @@ if [[ $K_PAD -le 512 ]]; then
     dd if=/dev/zero bs=1 count=$K_PAD >> $OUTPUT
 fi
 
-# Append initrd to the file
-cat $RD >> $OUTPUT
+# # Append initrd to the file
+# cat $RD >> $OUTPUT
 
-# Add padding after initrd if necessary
-if [[ $R_PAD -lt 512 ]]; then
-    dd if=/dev/zero bs=1 count=$R_PAD >> $OUTPUT
-fi
+# # Add padding after initrd if necessary
+# if [[ $R_PAD -lt 512 ]]; then
+#     dd if=/dev/zero bs=1 count=$R_PAD >> $OUTPUT
+# fi
 
 # Calculate total size and display information
 TOTAL=`stat -c %s $OUTPUT`
