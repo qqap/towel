@@ -23,22 +23,13 @@ jobs:
           wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.49.tar.xz
           tar xf linux-6.6.49.tar.xz
           cd linux-6.6.49
-
-      - name: Copy configuration files
-        run: |
           cp ${{ github.workspace }}/.config .
           mkdir -p initramfs
           cp ${{ github.workspace }}/initramfs/* initramfs/
           cp ${{ github.workspace }}/spec .
- 
-      - name: Generate init.cpio and build kernel
-        run: |
           make -j$(nproc) bzImage
           ./usr/gen_initramfs.sh spec -o init.cpio
           cp arch/x86/boot/bzImage ${{ github.workspace }}/
-
-      - name: Run build script
-        run: |
           cd ${{ github.workspace }}
           ./build.sh
 
