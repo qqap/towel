@@ -42,6 +42,9 @@ chmod 600 /root/.ssh/authorized_keys
 # Dropbear SSH server start
 mkdir /etc/dropbear && dropbearmulti dropbear -s -R
 
+# add zsh as valid shell
+echo "/bin/zsh" | sudo tee -a /etc/shells
+
 # oh-my-zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 zsh install.sh
