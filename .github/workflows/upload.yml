@@ -27,8 +27,8 @@ jobs:
           mkdir -p initramfs
           cp ${{ github.workspace }}/initramfs/* initramfs/
           cp ${{ github.workspace }}/spec .
-          make -j$(nproc) bzImage
           ./usr/gen_initramfs.sh spec -o init.cpio
+          make -j$(nproc) bzImage
           cp arch/x86/boot/bzImage ${{ github.workspace }}/
           cd ${{ github.workspace }}
           ./build.sh
