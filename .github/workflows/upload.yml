@@ -43,6 +43,7 @@ jobs:
           make defconfig
           make CC="ccache gcc" -j$(nproc)
           cp ${{ github.workspace }}/.config .
+          ./gen_spec.sh
           ./usr/gen_initramfs.sh spec -o init.cpio
           echo "about to make with init.cpio"; ls; pwd
           make CC="ccache gcc" -j$(nproc)
