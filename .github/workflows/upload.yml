@@ -21,7 +21,13 @@ jobs:
       - name: Set up environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential flex bison libssl-dev libelf-dev nasm wget
+          sudo apt-get install -y build-essential flex bison libssl-dev libelf-dev nasm wget ccache
+
+      - name: Load ccache
+        uses: actions/cache@v2
+        with:
+          path: ~/.ccache
+          key: ccache-linuxkernel-${{ runner.os }}
 
       - name: Download and extract Linux kernel # need to grab the latest stable kernel
         run: |
@@ -34,11 +40,11 @@ jobs:
           cp ${{ github.workspace }}/spec .
           echo "about to initramfs.sh"; ls; pwd
           make defconfig
-          make -j$(nproc)
+          make CC="CCACHE_DIR=~/.ccache ccache gcc" -j$(nproc)
           cp ${{ github.workspace }}/.config .
           ./usr/gen_initramfs.sh spec -o init.cpio
           echo "about to make with init.cpio"; ls; pwd
-          make -j$(nproc)
+          make CC="CCACHE_DIR=~/.ccache ccache gcc" -j$(nproc)
           cp arch/x86/boot/bzImage ${{ github.workspace }}/
           cd ${{ github.workspace }}
           ./build.sh

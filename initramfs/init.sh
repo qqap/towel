@@ -46,9 +46,9 @@ mkdir /etc/dropbear && dropbearmulti dropbear -s -R
 echo "/bin/zsh" > /etc/shells
 
 # somewhat git setup
-mkdir -p /bin/gitfolder
-tar -xvzf /bin/git.tar.gz -C /bin/gitfolder
-ln -s /bin/gitfolder/bin/git /bin/git
+mkdir -p /bin/gitstatic
+tar -xvzf /bin/gitstatic.tar.gz -C /bin/gitstatic
+ln -s /bin/gitstatic/bin/git /bin/git
 
 # oh-my-zsh
 # wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
