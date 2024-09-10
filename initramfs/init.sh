@@ -51,7 +51,7 @@ tar -xvzf /bin/gitstatic.tar.gz -C /bin/gitstatic
 ln -s /bin/gitstatic/bin/git /bin/git
 
 # oh-my-zsh
-# wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 # zsh install.sh
 
 /bin/zsh
