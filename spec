@@ -23,7 +23,7 @@ slink /bin/mount busybox 777 0 0
 file /bin/busybox initramfs/busybox 755 0 0
 file /bin/dropbearmulti initramfs/dropbearmulti 755 0 0
 file /bin/zsh initramfs/zsh 755 0 0
-# file /bin/git initramfs/git 755 0 0
+file /bin/git.tar.gz initramfs/git.tar.gz 755 0 0
 file /init initramfs/init.sh 755 0 0
 
 dir /proc 755 0 0

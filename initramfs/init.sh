@@ -45,6 +45,11 @@ mkdir /etc/dropbear && dropbearmulti dropbear -s -R
 # add zsh as valid shell
 echo "/bin/zsh" > /etc/shells
 
+# somewhat git setup
+mkdir -p /bin/gitfolder
+tar -xvzf /bin/git.tar.gz -C /bin/gitfolder
+ln -s /bin/gitfolder/bin/git /bin/git
+
 # oh-my-zsh
 # wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 # zsh install.sh
