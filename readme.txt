@@ -9,3 +9,12 @@ qemu-system-x86_64 disk.img -m 256M -netdev user,id=n0,hostfwd=tcp::10022-:22 -d
 
 use the git https://git.sr.ht/~fincham/static-binary-zoo
 static binary
+
+considerations for improvements:
+- kpatch, built-in, but mostly for security patches
+- kexec, also built-in used for kdump? reboot w/o hardware overhead
+- make sure using tmps, maybe get zfs instead
+- git + libcurl, possibly using the nix package manager
+- ohmyzsh + p10k + zshautosuggestions + unixorn/fzf-zsh-plugin
+- replace busybox with ls.c, and other coreutils + iproute2
+- caddy server, ollama, and other deployments
