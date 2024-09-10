@@ -37,8 +37,7 @@ jobs:
           cd linux-6.6.49
           export CCACHE_DIR=~/.ccache
           echo "inside kernel"; ls; pwd
-          mkdir -p initramfs
-          cp -r ${{ github.workspace }}/initramfs initramfs/
+          cp -r ${{ github.workspace }}/initramfs .
           cp ${{ github.workspace }}/spec .
           echo "about to initramfs.sh"; ls; pwd
           make defconfig
