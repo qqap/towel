@@ -1,4 +1,4 @@
-ok, this doesn't work,
+ok, this kinda works.
 git is just too painful to set up
 i just assumed most static binaries exist for most things
 
