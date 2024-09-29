@@ -1,3 +1,7 @@
+ok, this doesn't work,
+git is just too painful to set up
+i just assumed most static binaries exist for most things
+
 # probably can just use the dir directly and the kernel build will convert to cpio
 ./usr/gen_initramfs.sh spec -o init.cpio
 make -j 18 && cp arch/x86/boot/bzImage ~/
@@ -17,4 +21,4 @@ considerations for improvements:
 - git + libcurl, possibly using the nix package manager
 - ohmyzsh + p10k + zshautosuggestions + unixorn/fzf-zsh-plugin
 - replace busybox with ls.c, and other coreutils + iproute2
-- caddy server, ollama, and other deployments
+- caddy server, ollama, tailscale and other deployments
