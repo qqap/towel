@@ -2,6 +2,8 @@ ok, this kinda works.
 git is just too painful to set up
 i just assumed most static binaries exist for most things
 
+maybe use jj instead of git?
+
 # probably can just use the dir directly and the kernel build will convert to cpio
 ./usr/gen_initramfs.sh spec -o init.cpio
 make -j 18 && cp arch/x86/boot/bzImage ~/
